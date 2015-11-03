@@ -24,9 +24,9 @@ from edx_proctoring.exceptions import (
     ProctoredExamBadReviewStatus,
 )
 from edx_proctoring.utils import locate_attempt_by_attempt_code
-from edx_proctoring. models import (
-    ProctoredExamProctorWebassistantReview,
-    ProctoredExamProctorWebassistantComment,
+from edx_proctoring.models import (
+    ProctoredExamSoftwareSecureComment,
+    ProctoredExamSoftwareSecureReview,
     ProctoredExamStudentAttemptStatus,
 )
 
@@ -185,7 +185,7 @@ class NPOEDBackendProvider(ProctoringBackendProvider):
         video_review_link = payload['videoReviewLink']
 
         # do we already have a review for this attempt?!? We may not allow updates
-        review = ProctoredExamProctorWebassistantReview.get_review_by_attempt_code(attempt_code)
+        review = ProctoredExamSoftwareSecureReview.get_review_by_attempt_code(attempt_code)
 
         if review:
             if not constants.ALLOW_REVIEW_UPDATES:
@@ -209,7 +209,7 @@ class NPOEDBackendProvider(ProctoringBackendProvider):
         else:
             # this is first time we've received this attempt_code, so
             # make a new record in the review table
-            review = ProctoredExamProctorWebassistantReview()
+            review = ProctoredExamSoftwareSecureReview()
 
         review.attempt_code = attempt_code
         review.raw_data = json.dumps(payload)
@@ -287,7 +287,7 @@ class NPOEDBackendProvider(ProctoringBackendProvider):
         """
         Helper method to save a review comment
         """
-        comment = ProctoredExamProctorWebassistantComment(
+        comment = ProctoredExamSoftwareSecureComment(
             review=review,
             start_time=comment['eventStart'],
             stop_time=comment['eventFinish'],
