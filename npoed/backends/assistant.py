@@ -375,7 +375,7 @@ class NPOEDBackendProvider(ProctoringBackendProvider):
                 "courseID": exam['course_id'],
                 "firstName": first_name,
                 "lastName": last_name,
-                "userId": context.get('user_id'),
+                "userID": context.get('user_id'),
                 "username": context.get('username'),
                 "email": context.get('email')
             }
