@@ -13,6 +13,7 @@ import json
 import logging
 
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from edx_proctoring.backends.backend import ProctoringBackendProvider
 from edx_proctoring import constants
@@ -219,7 +220,12 @@ class NPOEDBackendProvider(ProctoringBackendProvider):
         review.exam = attempt_obj.proctored_exam
         # set reviewed_by to None because it was reviewed by our 3rd party
         # service provider, not a user in our database
-        review.reviewed_by = None
+        reviewer_username = payload['examMetaData']['proctor_username']
+        try:
+            reviewer = User.objects.get(username=reviewer_username)
+        except User.DoesNotExist:
+            reviewer = None
+        review.reviewed_by = reviewer
 
         review.save()
 
