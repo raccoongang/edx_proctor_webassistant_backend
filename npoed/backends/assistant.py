@@ -63,7 +63,6 @@ class NPOEDBackendProvider(ProctoringBackendProvider):
         """
 
         attempt_code = context['attempt_code']
-        print(attempt_code)
 
         data = self._get_payload(
             exam,
