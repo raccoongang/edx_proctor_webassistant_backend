@@ -13,6 +13,7 @@ import json
 import logging
 
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from edx_proctoring.backends.backend import ProctoringBackendProvider
 from edx_proctoring import constants
