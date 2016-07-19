@@ -240,7 +240,7 @@ class NPOEDBackendProvider(ProctoringBackendProvider):
         # eligibility table
         if not is_archived_attempt:
             allow_status_update_on_fail = not settings.PROCTORING_SETTINGS.get(
-                'REQUIRE_FAILURE_SECOND_REVIEWS', True
+                'REQUIRE_FAILURE_SECOND_REVIEWS', False
             )
             self.on_review_saved(review, allow_status_update_on_fail=allow_status_update_on_fail)
 
