@@ -239,9 +239,9 @@ class NPOEDBackendProvider(ProctoringBackendProvider):
         # this should *not* cause an update in our credit
         # eligibility table
         if not is_archived_attempt:
-
-            allow_status_update_on_fail = not constants.REQUIRE_FAILURE_SECOND_REVIEWS
-
+            allow_status_update_on_fail = not settings.PROCTORING_SETTINGS.get(
+                'REQUIRE_FAILURE_SECOND_REVIEWS', True
+            )
             self.on_review_saved(review, allow_status_update_on_fail=allow_status_update_on_fail)
 
     def on_review_saved(self, review, allow_status_update_on_fail=False):  # pylint: disable=arguments-differ
