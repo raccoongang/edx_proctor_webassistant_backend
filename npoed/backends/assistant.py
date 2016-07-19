@@ -188,7 +188,7 @@ class NPOEDBackendProvider(ProctoringBackendProvider):
         review = ProctoredExamSoftwareSecureReview.get_review_by_attempt_code(attempt_code)
 
         if review:
-            if not constants.ALLOW_REVIEW_UPDATES:
+            if not settings.PROCTORING_SETTINGS.get('ALLOW_REVIEW_UPDATES', True):
                 err_msg = (
                     'We already have a review submitted from ProctorWebassistant regarding '
                     'attempt_code {attempt_code}. We do not allow for updates!'.format(
